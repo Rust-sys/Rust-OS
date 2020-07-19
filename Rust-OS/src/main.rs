@@ -6,10 +6,12 @@ mod vga_display;
 /// no_mangle to disable name mangling to really outputs function witn name "_start"
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    vga_display::test_print();
+    // vga_display::test_print();
+    use core::fmt::Write;
+    vga_display::WRITER.lock().write_str("Jesus it actually works!\n").unwrap();
+    write!(vga_display::WRITER.lock(), "number: {}\n", 1.0 / 4.0).unwrap();
     loop{}
 }
-
 
 
 /// panic handler, "!" represents the never type
